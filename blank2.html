@@ -1,0 +1,79 @@
+<html>
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+if (self==top) location.replace('index.html');
+
+function switchGraphic(num, name)
+{
+	var tmpNum = num;
+	if (tmpNum > 4) tmpNum = tmpNum-5;
+	window.status=Pages[tmpNum].pgName;
+	if ((name == top.left.NavURL) && (num < 5)) num+=10;
+	top.left.document.images[name].src = img[num].src;
+}
+
+
+pic=new Array();
+pic[0]="images/nav1.gif"; 
+pic[1]="images/nav2.gif";
+pic[2]="images/nav3.gif";
+pic[3]="images/nav4.gif";
+pic[4]="images/nav5.gif";
+pic[5]="images/nav1on.gif"; 
+pic[6]="images/nav2on.gif"; 
+pic[7]="images/nav3on.gif"; 
+pic[8]="images/nav4on.gif"; 
+pic[9]="images/nav5on.gif"; 
+pic[10]="images/nav1on2.gif"; 
+pic[11]="images/nav2on2.gif"; 
+pic[12]="images/nav3on2.gif"; 
+pic[13]="images/nav4on2.gif"; 
+pic[14]="images/nav5on2.gif"; 
+
+img = new Array();
+for (i = 0; i < pic.length; i++)
+{
+	img[i] = new Image();
+	img[i].src = pic[i];
+}
+
+
+function Page(pgName, pgURL)
+{
+	this.pgName = pgName;
+	this.pgURL = pgURL;
+	this.subPg = new Array();
+}
+
+var Pages = new Array();
+Pages[0] = new Page('Home','/home.html')
+Pages[1] = new Page('Shows','/shows.html')
+Pages[2] = new Page('Faces','/faces.html')
+Pages[2].subPg[0] = new Page('Faces','/dave-01.shtml')
+Pages[2].subPg[1] = new Page('Faces','/jay-01.shtml')
+Pages[2].subPg[2] = new Page('Faces','/jim-01.shtml')
+Pages[3] = new Page('Music','/music.html')
+Pages[4] = new Page('Stuff','/stuff.html')
+
+
+var LastURL = '';
+function GoTo(num,sub)
+{
+	LastURL = top.left.NavURL;
+	top.left.NavURL = Pages[num].pgName;
+	for (var i = 0; i < Pages.length; i++)
+	{
+		if (Pages[i].pgName == LastURL) top.left.document.images[LastURL].src = img[i].src;
+	}
+	if (sub != null) top.content.location = Pages[num].subPg[sub].pgURL;
+	else top.content.location = Pages[num].pgURL;
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+<body BGCOLOR="#000000"><!img SRC="images/sig.gif" ALIGN="RIGHT" BORDER="0" ALT="Web Design by Mister Rand" WIDTH="100" HEIGHT="23">
+</body>
+</html>

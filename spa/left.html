@@ -1,0 +1,157 @@
+<HTML>
+
+<HEAD>
+<TITLE>Corum - Metal Progresivo en Minneapolis</TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+if (self==top) location.replace('index.html');
+var NavURL = 'Principal';
+var NavPage = top.ParseQueryString('page');
+var isLocal = true;
+ns = (navigator.appName == "Netscape");
+
+function switchLang()
+{
+	if (NavPage == '') NavPage = 0;
+	top.location = '/index.html?page=' + NavPage;
+}
+
+function switchGraphic(num, name)
+{
+	var tmpNum = num;
+	if (tmpNum > 4) tmpNum = tmpNum-5;
+	if (tmpNum > 4) tmpNum = tmpNum-5;
+	window.status=Pages[tmpNum].pgName;
+	if ((name == top.left.NavURL) && (num < 5)) num+=10;
+	top.left.document.images[name].src = img[num].src;
+	if (name == 'Stuff') 
+	{
+		if (isLocal == true) setTimeout('window.status="Now Showing: " + top.content.document.title', FlashSpeed*25);
+	}
+}
+
+
+pic=new Array();
+pic[0]="/images/spa/nav1.gif"; 
+pic[1]="/images/spa/nav2.gif";
+pic[2]="/images/spa/nav3.gif";
+pic[3]="/images/spa/nav4.gif";
+pic[4]="/images/spa/nav5.gif";
+pic[5]="/images/spa/nav1on.gif"; 
+pic[6]="/images/spa/nav2on.gif"; 
+pic[7]="/images/spa/nav3on.gif"; 
+pic[8]="/images/spa/nav4on.gif"; 
+pic[9]="/images/spa/nav5on.gif"; 
+pic[10]="/images/spa/nav1on2.gif"; 
+pic[11]="/images/spa/nav2on2.gif"; 
+pic[12]="/images/spa/nav3on2.gif"; 
+pic[13]="/images/spa/nav4on2.gif"; 
+pic[14]="/images/spa/nav5on2.gif"; 
+
+img = new Array();
+for (i = 0; i < pic.length; i++)
+{
+	img[i] = new Image();
+	img[i].src = pic[i];
+}
+
+
+function Page(pgName, pgURL)
+{
+	this.pgName = pgName;
+	this.pgURL = pgURL;
+	this.subPg = new Array();
+}
+
+var Pages = new Array();
+Pages[0] = new Page('Principal','home.html')
+Pages[1] = new Page('Presentaciones','shows.html')
+Pages[2] = new Page('Caras','faces.html')
+Pages[2].subPg[0] = new Page('Caras','dave-01.shtml')
+Pages[2].subPg[1] = new Page('Caras','jay-01.shtml')
+Pages[2].subPg[2] = new Page('Caras','jim-01.shtml')
+Pages[3] = new Page('Música','music.html')
+Pages[4] = new Page('Artículos','stuff.html')
+
+
+var LastURL = '';
+function GoTo(num,sub)
+{
+	LastURL = top.left.NavURL;
+	top.left.NavURL = Pages[num].pgName;
+	top.left.NavPage = num;
+	for (var i = 0; i < Pages.length; i++)
+	{
+		if (Pages[i].pgName == LastURL) top.left.document.images[LastURL].src = img[i].src;
+	}
+	if (sub != null) top.content.location = Pages[num].subPg[sub].pgURL;
+	else top.content.location = Pages[num].pgURL;
+	setTimeout('isLocal=true', 5000);
+}
+
+function notify()
+{
+	if (!ns) FlashNav();
+}
+
+function FlashNav()
+{
+	clearTimeout(timerId);
+
+	switchGraphic(10, "Principal");
+	setTimeout('switchGraphic(11, "Presentaciones")', FlashSpeed);
+	setTimeout('switchGraphic(12, "Caras")', FlashSpeed*2);
+	setTimeout('switchGraphic(13, "Música")', FlashSpeed*3);
+	setTimeout('switchGraphic(14, "Artículos")', FlashSpeed*4);
+
+	setTimeout('switchGraphic( 5, "Principal")' , FlashSpeed*5);
+	setTimeout('switchGraphic( 6, "Presentaciones")', FlashSpeed*6);
+	setTimeout('switchGraphic( 7, "Caras")', FlashSpeed*7);
+	setTimeout('switchGraphic( 8, "Música")', FlashSpeed*8);
+	setTimeout('switchGraphic( 9, "Artículos")', FlashSpeed*9);
+
+	setTimeout('switchGraphic( 0, "Principal")' , FlashSpeed*10);
+	setTimeout('switchGraphic( 1, "Presentaciones")', FlashSpeed*11);
+	setTimeout('switchGraphic( 2, "Caras")', FlashSpeed*12);
+	setTimeout('switchGraphic( 3, "Música")', FlashSpeed*13);
+	setTimeout('switchGraphic( 4, "Artículos")', FlashSpeed*14);
+
+	timerId = setTimeout('FlashNav()',FlashInterval);
+	if (isLocal==true) setTimeout('window.status="Now Showing: " + top.content.document.title', FlashSpeed*25);
+}
+
+var FlashInterval=15000;
+var FlashSpeed=60;
+
+function DocLoad()
+{
+//	if (NavPage != '') 
+//		GoTo(NavPage);
+
+	if (ns) timerId = setTimeout('FlashNav()',0);
+	else timerId = setTimeout('FlashNav()',FlashInterval);
+}
+
+//-->
+
+</SCRIPT> 
+</HEAD>
+
+<BODY bgcolor="#ffffff" BACKGROUND="/images/LeftBack.gif" LINK="#FFFFFF" ALINK="#FFFFFF" VLINK="#FFFFFF" onLoad="DocLoad()">
+
+<TABLE HEIGHT="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0">
+<TR><TD VALIGN="middle">
+&nbsp;<BR>
+<A onMouseOver="switchGraphic(5, 'Principal');return true;" onMouseOut="switchGraphic(0, 'Principal');return true;" HREF="JavaScript:GoTo(0)"><IMG NAME="Principal" SRC="/images/spa/nav1on2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></A><BR><IMG SRC="/images/blank.gif" WIDTH="10" HEIGHT="20"><BR>
+<A onMouseOver="switchGraphic(6, 'Presentaciones');return true;" onMouseOut="switchGraphic(1, 'Presentaciones');return true;" HREF="JavaScript:GoTo(1)"><IMG NAME="Presentaciones" SRC="/images/spa/nav2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></A><BR><IMG SRC="/images/blank.gif" WIDTH="10" HEIGHT="20"><BR>
+<A onMouseOver="switchGraphic(7, 'Caras');return true;" onMouseOut="switchGraphic(2, 'Caras');return true;" HREF="JavaScript:GoTo(2)"><IMG NAME="Caras" SRC="/images/spa/nav3.gif" BORDER="0" WIDTH="194" HEIGHT="31"></A><BR><IMG SRC="/images/blank.gif" WIDTH="10" HEIGHT="20"><BR>
+<A onMouseOver="switchGraphic(8, 'Música');return true;" onMouseOut="switchGraphic(3, 'Música');return true;" HREF="JavaScript:GoTo(3)"><IMG NAME="Música" SRC="/images/spa/nav4.gif" BORDER="0" WIDTH="194" HEIGHT="31"></A><BR><IMG SRC="/images/blank.gif" WIDTH="10" HEIGHT="20"><BR>
+<A onMouseOver="switchGraphic(9, 'Artículos');return true;" onMouseOut="switchGraphic(4, 'Artículos');return true;" HREF="JavaScript:GoTo(4)"><IMG NAME="Artículos" SRC="/images/spa/nav5.gif" BORDER="0" WIDTH="194" HEIGHT="31"></A>
+&nbsp;&nbsp;<FONT FACE="Arial,Helvetica,Sans-Serif" COLOR="#FFFFFF" SIZE="1"><A HREF="javascript:switchLang()">In English</A></FONT>
+</TD></TR>
+</TABLE>
+
+</BODY>
+
+</HTML>
