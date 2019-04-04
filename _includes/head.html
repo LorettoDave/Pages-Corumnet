@@ -1,0 +1,147 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="css/tabs.css">
+
+	<SCRIPT LANGUAGE="JavaScript">
+		function ParseQueryString(searchStr) {
+			var tempStr = window.location.search;
+			var startOfString = tempStr.indexOf(searchStr);
+			var result;
+
+			result = "";
+			if (startOfString != -1) {
+				var endOfString = tempStr.indexOf("&", startOfString + searchStr.length + 1);
+				if (endOfString != -1) {
+					var result = tempStr.substring(startOfString + searchStr.length + 1, endOfString);
+				}
+				else {
+					var result = tempStr.substring(startOfString + searchStr.length + 1, tempStr.length);
+				}
+			}
+
+			return result;
+		}
+
+		var NavURL = 'Home';
+		var NavPage = ParseQueryString('page');
+		var isLocal = true;
+		ns = (navigator.appName == "Netscape");
+
+		function switchGraphic(num, name) {
+			var tmpNum = num;
+			if (tmpNum > 4) tmpNum = tmpNum - 5;
+			if (tmpNum > 4) tmpNum = tmpNum - 5;
+			window.status = Pages[tmpNum].pgName;
+			if ((name == NavURL) && (num < 5)) num += 10;
+			document.images[name].src = img[num].src;
+			if (name == 'Stuff') {
+				if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
+			}
+		}
+
+		pic = new Array();
+		pic[0] = "images/nav1.gif";
+		pic[1] = "images/nav2.gif";
+		pic[2] = "images/nav3.gif";
+		pic[3] = "images/nav4.gif";
+		pic[4] = "images/nav5.gif";
+		pic[5] = "images/nav1on.gif";
+		pic[6] = "images/nav2on.gif";
+		pic[7] = "images/nav3on.gif";
+		pic[8] = "images/nav4on.gif";
+		pic[9] = "images/nav5on.gif";
+		pic[10] = "images/nav1on2.gif";
+		pic[11] = "images/nav2on2.gif";
+		pic[12] = "images/nav3on2.gif";
+		pic[13] = "images/nav4on2.gif";
+		pic[14] = "images/nav5on2.gif";
+
+		img = new Array();
+		for (i = 0; i < pic.length; i++) {
+			img[i] = new Image();
+			img[i].src = pic[i];
+		}
+
+		function Page(pgName, pgURL) {
+			this.pgName = pgName;
+			this.pgURL = pgURL;
+			this.subPg = new Array();
+		}
+
+		var Pages = new Array();
+		Pages[0] = new Page('Home', '/Index')
+		Pages[1] = new Page('Shows', '/Shows')
+		Pages[1].subPg[0] = new Page('Shows', '/BrokenLeg')
+		Pages[2] = new Page('Faces', '/Faces')
+		Pages[2].subPg[0] = new Page('Faces', '/Dave01')
+		Pages[2].subPg[1] = new Page('Faces', '/Jay01')
+		Pages[2].subPg[2] = new Page('Faces', '/Jim01')
+		Pages[3] = new Page('Music', '/Music')
+		Pages[3].subPg[0] = new Page('Music', '/NotMyselfTracks')
+		Pages[3].subPg[1] = new Page('Music', '/NotMyselfLyrics')
+		Pages[3].subPg[2] = new Page('Music', '/NotMyselfCredits')
+		Pages[3].subPg[3] = new Page('Music', '/RiffheadTracks')
+		Pages[3].subPg[4] = new Page('Music', '/RiffheadLyrics')
+		Pages[3].subPg[5] = new Page('Music', '/RiffheadCredits')
+		Pages[4] = new Page('Stuff', '/Stuff')
+
+		var LastURL = '';
+		function WentTo(num, sub) {
+			LastURL = NavURL;
+			NavURL = Pages[num].pgName;
+			NavPage = num;
+			for (var i = 0; i < Pages.length; i++) {
+				if (Pages[i].pgName == LastURL) document.images[LastURL].src = img[i].src;
+			}
+
+			setTimeout('isLocal=true', 5000);
+		}
+
+		function notify() {
+			if (!ns) FlashNav();
+		}
+
+		function FlashNav() {
+			clearTimeout(timerId);
+
+			switchGraphic(10, "Home");
+			setTimeout('switchGraphic(11, "Shows")', FlashSpeed);
+			setTimeout('switchGraphic(12, "Faces")', FlashSpeed * 2);
+			setTimeout('switchGraphic(13, "Music")', FlashSpeed * 3);
+			setTimeout('switchGraphic(14, "Stuff")', FlashSpeed * 4);
+
+			setTimeout('switchGraphic( 5, "Home")', FlashSpeed * 5);
+			setTimeout('switchGraphic( 6, "Shows")', FlashSpeed * 6);
+			setTimeout('switchGraphic( 7, "Faces")', FlashSpeed * 7);
+			setTimeout('switchGraphic( 8, "Music")', FlashSpeed * 8);
+			setTimeout('switchGraphic( 9, "Stuff")', FlashSpeed * 9);
+
+			setTimeout('switchGraphic( 0, "Home")', FlashSpeed * 10);
+			setTimeout('switchGraphic( 1, "Shows")', FlashSpeed * 11);
+			setTimeout('switchGraphic( 2, "Faces")', FlashSpeed * 12);
+			setTimeout('switchGraphic( 3, "Music")', FlashSpeed * 13);
+			setTimeout('switchGraphic( 4, "Stuff")', FlashSpeed * 14);
+
+			timerId = setTimeout('FlashNav(true)', FlashInterval);
+			if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
+		}
+
+		var FlashInterval = 15000;
+		var FlashSpeed = 60;
+
+		function DocLoad() {
+			if (ns) timerId = setTimeout('FlashNav()', 0);
+			else timerId = setTimeout('FlashNav()', FlashInterval);
+		}
+
+		var myPix = new Array("images/random/head1.gif","images/random/head2.gif","images/random/head3.gif","images/random/head4.gif","images/random/head5.gif","images/random/head6.gif","images/random/head7.gif","images/random/head8.gif","images/random/head9.gif","images/random/head10.gif","images/random/head11.gif","images/random/head12.gif","images/random/head13.gif");
+		function loadRandomPic(imgID) {
+			var randomNum = Math.floor(Math.random() * myPix.length);
+			document.getElementById(imgID).src = myPix[randomNum];
+		}
+		
+		WentTo({{ page.number }});
+		
+		</SCRIPT>
+</head>
