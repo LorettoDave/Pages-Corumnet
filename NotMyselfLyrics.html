@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="css/tabs.css">
+
+	<SCRIPT LANGUAGE="JavaScript">
+		function ParseQueryString(searchStr) {
+			var tempStr = window.location.search;
+			var startOfString = tempStr.indexOf(searchStr);
+			var result;
+
+			result = "";
+			if (startOfString != -1) {
+				var endOfString = tempStr.indexOf("&", startOfString + searchStr.length + 1);
+				if (endOfString != -1) {
+					var result = tempStr.substring(startOfString + searchStr.length + 1, endOfString);
+				}
+				else {
+					var result = tempStr.substring(startOfString + searchStr.length + 1, tempStr.length);
+				}
+			}
+
+			return result;
+		}
+
+		var NavURL = 'Home';
+		var NavPage = ParseQueryString('page');
+		var isLocal = true;
+		ns = (navigator.appName == "Netscape");
+
+		function switchGraphic(num, name) {
+			var tmpNum = num;
+			if (tmpNum > 4) tmpNum = tmpNum - 5;
+			if (tmpNum > 4) tmpNum = tmpNum - 5;
+			window.status = Pages[tmpNum].pgName;
+			if ((name == NavURL) && (num < 5)) num += 10;
+			document.images[name].src = img[num].src;
+			if (name == 'Stuff') {
+				if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
+			}
+		}
+
+		pic = new Array();
+		pic[0] = "images/nav1.gif";
+		pic[1] = "images/nav2.gif";
+		pic[2] = "images/nav3.gif";
+		pic[3] = "images/nav4.gif";
+		pic[4] = "images/nav5.gif";
+		pic[5] = "images/nav1on.gif";
+		pic[6] = "images/nav2on.gif";
+		pic[7] = "images/nav3on.gif";
+		pic[8] = "images/nav4on.gif";
+		pic[9] = "images/nav5on.gif";
+		pic[10] = "images/nav1on2.gif";
+		pic[11] = "images/nav2on2.gif";
+		pic[12] = "images/nav3on2.gif";
+		pic[13] = "images/nav4on2.gif";
+		pic[14] = "images/nav5on2.gif";
+
+		img = new Array();
+		for (i = 0; i < pic.length; i++) {
+			img[i] = new Image();
+			img[i].src = pic[i];
+		}
+
+		function Page(pgName, pgURL) {
+			this.pgName = pgName;
+			this.pgURL = pgURL;
+			this.subPg = new Array();
+		}
+
+		var Pages = new Array();
+		Pages[0] = new Page('Home', '/Index')
+		Pages[1] = new Page('Shows', '/Shows')
+		Pages[1].subPg[0] = new Page('Shows', '/BrokenLeg')
+		Pages[2] = new Page('Faces', '/Faces')
+		Pages[2].subPg[0] = new Page('Faces', '/Dave01')
+		Pages[2].subPg[1] = new Page('Faces', '/Jay01')
+		Pages[2].subPg[2] = new Page('Faces', '/Jim01')
+		Pages[3] = new Page('Music', '/Music')
+		Pages[3].subPg[0] = new Page('Music', '/NotMyselfTracks')
+		Pages[3].subPg[1] = new Page('Music', '/NotMyselfLyrics')
+		Pages[3].subPg[2] = new Page('Music', '/NotMyselfCredits')
+		Pages[3].subPg[3] = new Page('Music', '/RiffheadTracks')
+		Pages[3].subPg[4] = new Page('Music', '/RiffheadLyrics')
+		Pages[3].subPg[5] = new Page('Music', '/RiffheadCredits')
+		Pages[4] = new Page('Stuff', '/Stuff')
+
+		var LastURL = '';
+		function WentTo(num, sub) {
+			LastURL = NavURL;
+			NavURL = Pages[num].pgName;
+			NavPage = num;
+			for (var i = 0; i < Pages.length; i++) {
+				if (Pages[i].pgName == LastURL) document.images[LastURL].src = img[i].src;
+			}
+
+			setTimeout('isLocal=true', 5000);
+		}
+
+		function notify() {
+			if (!ns) FlashNav();
+		}
+
+		function FlashNav() {
+			clearTimeout(timerId);
+
+			switchGraphic(10, "Home");
+			setTimeout('switchGraphic(11, "Shows")', FlashSpeed);
+			setTimeout('switchGraphic(12, "Faces")', FlashSpeed * 2);
+			setTimeout('switchGraphic(13, "Music")', FlashSpeed * 3);
+			setTimeout('switchGraphic(14, "Stuff")', FlashSpeed * 4);
+
+			setTimeout('switchGraphic( 5, "Home")', FlashSpeed * 5);
+			setTimeout('switchGraphic( 6, "Shows")', FlashSpeed * 6);
+			setTimeout('switchGraphic( 7, "Faces")', FlashSpeed * 7);
+			setTimeout('switchGraphic( 8, "Music")', FlashSpeed * 8);
+			setTimeout('switchGraphic( 9, "Stuff")', FlashSpeed * 9);
+
+			setTimeout('switchGraphic( 0, "Home")', FlashSpeed * 10);
+			setTimeout('switchGraphic( 1, "Shows")', FlashSpeed * 11);
+			setTimeout('switchGraphic( 2, "Faces")', FlashSpeed * 12);
+			setTimeout('switchGraphic( 3, "Music")', FlashSpeed * 13);
+			setTimeout('switchGraphic( 4, "Stuff")', FlashSpeed * 14);
+
+			timerId = setTimeout('FlashNav(true)', FlashInterval);
+			if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
+		}
+
+		var FlashInterval = 15000;
+		var FlashSpeed = 60;
+
+		function DocLoad() {
+			if (ns) timerId = setTimeout('FlashNav()', 0);
+			else timerId = setTimeout('FlashNav()', FlashInterval);
+		}
+
+		var myPix = new Array("images/random/head1.gif","images/random/head2.gif","images/random/head3.gif","images/random/head4.gif","images/random/head5.gif","images/random/head6.gif","images/random/head7.gif","images/random/head8.gif","images/random/head9.gif","images/random/head10.gif","images/random/head11.gif","images/random/head12.gif","images/random/head13.gif");
+		function loadRandomPic(imgID) {
+			var randomNum = Math.floor(Math.random() * myPix.length);
+			document.getElementById(imgID).src = myPix[randomNum];
+		}
+		
+		WentTo(3);
+		
+		</SCRIPT>
+</head>
+<body bgcolor="#ffffff" link="#990000" alink="#990000" vlink="#990000" onLoad="DocLoad()">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5P683RF"
+				height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->	
+		<div style="position: relative; vertical-align: middle; left: 0px; width: 100%; height: 100%;" class="container">
+
+			<TABLE HEIGHT="100%" width="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0" style="width: 100%">
+				<TR>
+					<TD height="100%" VALIGN="middle" width="202" rowspan="3"
+						style="background-color: black; background-image: url(images/LeftBack.gif); background-repeat: no-repeat; background-position:center; background-position-x: 1px;">
+						<a href="./" onMouseOver="switchGraphic(5, 'Home');return true;" onMouseOut="switchGraphic(0, 'Home');return true;"><IMG NAME="Home" SRC="images/nav1on2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
+						<a href="Shows" onMouseOver="switchGraphic(6, 'Shows');return true;" onMouseOut="switchGraphic(1, 'Shows');return true;"><IMG NAME="Shows" SRC="images/nav2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
+						<a href="Faces" onMouseOver="switchGraphic(7, 'Faces');return true;" onMouseOut="switchGraphic(2, 'Faces');return true;"><IMG NAME="Faces" SRC="images/nav3.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
+						<a href="Music" onMouseOver="switchGraphic(8, 'Music');return true;" onMouseOut="switchGraphic(3, 'Music');return true;"><IMG NAME="Music" SRC="images/nav4.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
+						<a href="Stuff" onMouseOver="switchGraphic(9, 'Stuff');return true;" onMouseOut="switchGraphic(4, 'Stuff');return true;"><IMG NAME="Stuff" SRC="images/nav5.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a>
+					</TD>
+					<TD VALIGN="TOP" ALIGN="CENTER"><header>
+						&nbsp;<BR><a href=""><img SRC="images/header.gif" ALT="C O R U M" WIDTH="412" HEIGHT="42" border="0"></a><br>
+
+						Buy <a HREF="http://www.cafepress.com/corum">T-shirts, mugs, and mousepads</a> at CafePress.com.<br />
+						Check out our the <a href="https://youtube.com/corumnet/">Corumnet channel on YouTube</a>.<br />
+						&nbsp;<br>
+</header>
+</TD>
+				</TR>
+				<tr>
+					<td class="container body-content" height="100%" VALIGN="middle" ALIGN="CENTER">
+	<style>
+
+	<!--
+
+	h1 {
+		font-family: Arial, Helvetica, Sans-Serif;
+		font-size: 14pt;
+		color: #660000;
+		text-align: center
+	}
+
+	.note {
+		font-family: Arial, Helvetica, Sans-Serif;
+		font-size: 9pt;
+		color: #660000;
+		text-align: center;
+		font-weight: normal
+	}
+
+	h2 {
+		font-family: Arial, Helvetica, Sans-Serif;
+		font-size: 12pt;
+		color: black;
+		font-weight: bold;
+		background: #50C050;
+		text-align: center
+	}
+
+	p {
+		font-family: Arial, Helvetica, Sans-Serif;
+		font-size: 12pt;
+		color: white;
+		padding: 4px
+	}
+
+	.title {
+		background: white
+	}
+
+	-->
+</style>
+
+<table align="CENTER" cellspacing="0" border="0"><tr><td bgcolor="#FFFFFF" class="title"><h1><i>Not Myself</i> Lyrics<span class="note"><br />Copyright &#169; 2000 Corum. All rights reserved.</span></h1></td></tr></table>
+
+<table cellspacing="0" border="0">
+	<tr><td><h2><a name="#heaviest"></a>HEAVIEST &#151; 2:42</h2></td></tr>
+	<tr>
+		<td class="" style="background: black url(images/icon_heaviest.gif) no-repeat top right">
+			<p>
+				These are the things that we don&#146;t talk about<br />
+				&#145;cause it&#146;s affecting everyone we know,<br />
+				and we don&#146;t talk about <br />
+				because it makes us so uncomfortable.<br />&nbsp;<br />
+				Failures never to rise in conversation;<br />
+				success stressed&#151;exclamation.<br />
+				And what about your home, your life, your beliefs?
+			</p>
+			<p>
+				These are the things that we don&#146;t talk about<br />
+				because it might ruffle some feathers up,<br />
+				and we don&#146;t talk about it, <br />
+				and it makes us kind of nuts.
+			</p>
+			<p>
+				These are the things that we don&#146;t talk about<br />
+				&#145;cause people probe our lives day after day,<br />
+				and we don&#146;t talk about <br />
+				because we hope it will just go away.
+			</p>
+			<p>
+				These are the things that we don&#146;t talk about:<br />
+				this message always hitting in the face,<br />
+				and we don&#146;t talk about <br />
+				resulting guessing error is the case.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#proctology"></a>PROCTOLOGY &#151; 9:50</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_proctology.gif) no-repeat top right">
+			<p>
+				So now I see every inch I gave to you is gone.<br />
+				You, only to return the look on your face<br />
+				telling me your sad story.<br />
+				I don&#146;t believe you&#151;why I didn&#146;t know why.<br />
+				To deceive me was your goal, and you lied.<br />
+				Bite the hand that feeds you no more;<br />
+				chores and deeds you will not receive.<br />
+				Call on me; I won&#146;t be there for you no more.<br />
+				Will I guide? You make excuses.<br />
+				Left in a pool of pity. Poor little boy.
+			</p>
+			<p>
+				(I know you well.)<br />
+				What a fool I was to take your word because<br />
+				you leaned on me when you were strong.<br />
+				(More than you know.)<br />
+				I guess you never saw how hard I worked for you.<br />
+				Thanking me was only last.
+			</p>
+			<p>
+				Proctology is the way that you clothe and feed yourself.<br />
+				You&#146;re not a doctor, so I refuse to pay.<br />
+				Hand over fist out the door you go&#151;out of my life.<br />
+				Stay away; leave me alone; and I repeat<br />
+				your empty promises which I refuse to deal.<br />
+				Your mouth is moving, but no truth comes out your<br />
+				little hole.<br />
+				Life like a hungry hunting leach: parasitic in act.<br />
+				You try to teach me one way to fill my huge void<br />
+				of self rely you don&#146;t possess.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#cryforhelp"></a>CRY FOR HELP &#151; 4:25</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_cryforhelp.gif) no-repeat top right">
+			<p>
+				Shackled from inside. Injury limits pride.<br />
+				I am my lesser self. I scream a cry for help.
+			</p>
+			<p>This is my cry. Hear my cry. Bring me back alive.</p>
+			<p>
+				I found one meaning of life today:<br />
+				While others cast me away,<br />
+				the freedom to move as I please;<br />
+				bow down&#151;I do to the God of knees.<br />
+				Do not need money; just a place to lie.<br />
+				Believe; I still dream for the sky.<br />
+				Say it without mobility.<br />
+				You hear me cry. You hear me scream.
+			</p>
+			<p>
+				Sitting in the wide, <br />
+				confining walls hold me inside.<br />
+				I am too weak to move myself.<br />
+				I need to cry. I need some help.<br />
+				None of this is what it seems.<br />
+				Can&#146;t rid myself nightmare; no dream.<br />
+				Arteries aching. No sleep tonight.<br />
+				I&#146;m forced to face this waking bite.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#angelbeard"></a>ANGEL BEARD 11:49</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_angelbeard.gif) no-repeat top right">
+			<p>
+				I see colors racing down the walls at me<br />
+				&#151;inching toward me like road before me;<br />
+				broken stripes and contiguous lines forming<br />
+				in colors of yellow and black.
+			</p>
+			<p>
+				All my life I&#146;ve dreamed of telling stories<br />
+				&#151;ones like on the silver screen.<br />
+				Mystery is right on top of my list.<br />
+				They come out as real life or dreams.
+			</p>
+			<p>
+				I&#146;m looking out. I see the world<br />
+				&#151;each cloud lined in silver.<br />
+				Now I&#146;m sitting down. I&#146;m out in the world.<br />
+				These days even the clouds have friends.<br />
+				Looks to me like Mario: hat, mustache, and all<br />
+				&#151;legs no longer than his head.<br />
+				Silver breaking down, fading into white light.<br />
+				They&#146;re playing hide and seek again.
+			</p>
+			<p>
+				Sitting in my chair I find it hard to move.<br />
+				At times I forget I&#146;m dreaming.<br />
+				Like all good things this will come to an end.<br />
+				Wait, now another begins.
+			</p>
+			<p>
+				Back in the room where this whole thing started,<br />
+				those gathered outside cannot hear.<br />
+				Living their reality, I&#146;m living mine.<br />
+				Time it moves on free and clear.
+			</p>
+			<p>
+				Beaming, glowing. <br />
+				Little red bugs where are you going?<br />
+				You should have been there.
+			</p>
+			<p>
+				Spinning, turning <br />
+				on rivet red &#145;cause you&#146;re burning.<br />
+				When can&#146;t find nervous system make no sound.
+			</p>
+			<p>
+				Synchronized, I&#146;m mesmerized <br />
+				watching intently though your demise.<br />
+				All left in panic stricken mode, they were.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#stillbreathing"></a>STILL BREATHING &#151; 5:14</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_stillbreathing.gif) no-repeat top right">
+			<p>
+				I&#146;m breathing. You can&#146;t stop me.<br />
+				Succeeding. You can&#146;t wrong me.<br />
+				I&#146;ve awakened more that ever.<br />
+				Time is now. Watch me deliver.<br />
+				Not wasting things you squander.<br />
+				Keep focus; no more wander.<br />
+				What I have of both sides.<br />
+				Confidence in me resides.
+			</p>
+			<p>
+				You mock me. I&#146;m listening <br />
+				with back turned. Hear so clearly.
+			</p>
+			<p>
+				I&#146;ve lived my life without regrets.<br />
+				I&#146;ve done more that you care to admit.<br />
+				So what if it is not done your way?<br />
+				I&#146;ve lived each one and every day.
+			</p>
+			<p>
+				Created by yourself <br />
+				with remarks I won&#146;t forget.
+			</p>
+			<p>
+				The day is coming soon. <br />
+				Too bad I won&#146;t share it with you.
+			</p>
+			<p>
+				Still breathing&#151;never stopped me.<br />
+				Successful&#151;never wronged me.<br />
+				Awake and looking at you.<br />
+				Time now, tell me what you do.<br />
+				Not wasting. You can&#146;t live by.<br />
+				Keep focus. You will deny.<br />
+				What I have you block outright.<br />
+				Confidence&#151;not in your life.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#intermission"></a>INTERMISSION &#151; 2:49</h2></td></tr>
+	<tr>
+		<td class="lyrics">
+			<p>(instrumental)</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#notmyself"></a>NOT MYSELF &#151; 7:44</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_notmyself.gif) no-repeat top right">
+			<p>
+				Fighting my biology during the <br />
+				last three thousand years.<br />
+				Such a short time, <br />
+				yet some want so much.<br />
+				Can&#146;t we just give it some time? <br />
+				When will we realize<br />
+				sudden change will always leave us <br />
+				short?
+			</p>
+			<p>
+				I am not myself when I&#146;m around you<br />
+				&#151;no one real; I am not real.<br />
+				You are not yourself, and it is so true<br />
+				&#151;no one real; I am not real.<br />
+				We are lying when everything&#146;s a mystery<br />
+				&#151;no one real; I am not real.
+			</p>
+			<p>
+				Stepping out you&#146;ll see it all.<br />
+				You&#146;re a fake, and you&#146;re a fake.<br />
+				A smile that looks forced like yours <br />
+				just won&#146;t get you far.<br />
+				Can&#146;t you see? Can&#146;t you tell that <br />
+				we are all sexist, racist, back-stabbing? <br />
+				Accept that, or lie to yourself.
+			</p>
+			<p>
+				I am not myself when I&#146;m around you<br />
+				&#151;no one real; I am not real.
+			</p>
+			<p>This is me.</p>
+			<p>
+				Now a new face upon the scene.<br />
+				Your personality will shift .<br />
+				Involuntarily hide what we think and feel.<br />
+				Disguise what we say<br />
+				&#151;laughing until they go away.
+			</p>
+			<p>
+				I will not feed your picture of me.<br />
+				I will not change to you from me.
+			</p>
+			<p>
+				Why this instant metamorphosis?<br />
+				Is it necessary to please you? I question.<br />
+				Is it necessary to please someone questionable?<br />
+				I am not myself because you&#146;re <br />
+				right in front of me.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#overunderachiever"></a>OVERUNDERACHIEVER &#151; 3:08</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_overunderachiever.gif) no-repeat top right">
+			<p>
+				You&#146;re always talking, but you&#146;ll never be heard.<br />
+				You wanted first, but you&#146;ll always be third.<br />
+				Remember nothing&#151;alcoholic blur.<br />
+				Think you&#146;ll ask her, but you&#146;ll never be sure.<br />
+				Twisted mind; you wish your thoughts were cleaner.<br />
+				This overwhelm you can never deter.<br />
+				Well wishes, but they didn&#146;t occur.<br />
+				All because you didn&#146;t lift a finger.
+			</p>
+			<p>
+				In things with meaning you were never concerned.<br />
+				Wanted to know, but you never did learn.<br />
+				Your mouth wide open, but it wasn&#146;t your turn.<br />
+				And spent the money that you know you can&#146;t earn.<br />
+				Knocking me although you know you&#146;re a turd.<br />
+				The goals in which you wish you could&#146;ve conquered<br />
+				are mounting in a file of never referred<br />
+				just like a pile of people not remembered.
+			</p>
+			<p>
+				I wish you well my friend&#151;like all the others.<br />
+				Each time you screw someone and toss them out<br />
+				like old furniture, I will give everything I&#146;ve got to<br />
+				end your schemes prematurely. Until you turn your<br />
+				take to giving, you will be labeled by the same name:<br />
+				Overunderachiever.
+			</p>
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td></tr>
+	<tr><td><h2><a name="#magnitude"></a>MAGNITUDE &#151; 7:23</h2></td></tr>
+	<tr>
+		<td style="background: black url(images/icon_magnitude.gif) no-repeat top right">
+			<p>
+				You don&#146;t take me seriously; I will show you.<br />
+				Won&#146;t waste my pride on you; won&#146;t waste my time.<br />
+				Energy depleting; must keep my focus.<br />
+				Time is my guide, and the sun is my light.
+			</p>
+			<p>
+				The goal created in my mind.<br />
+				Deceptive truth is still a lie.<br />
+				Tell it the way it really should be,<br />
+				or let your days&#146; end begin.
+			</p>
+			<p>
+				Accept me, but as a fool is your reason<br />
+				&#151;putting me down to your friends without thought.<br />
+				When asked what you really think by me you fester<br />
+				like the mold in your brain: one big clot of insane.
+			</p>
+			<p>
+				Magnitude rising; your palms start to sweat.<br />
+				You&#146;re burning inside, and it&#146;s growing again.<br />
+				Trying to be something truly you&#146;re not.<br />
+				By tearing me down guess just where you will rot.
+			</p>
+			<p>
+				I can&#146;t help but feeling you wish to be different.<br />
+				You are the one who is suffering inside.<br />
+				Can&#146;t seem to let go; hold on to security.<br />
+				Internal war&#151;it is yours. No, not mine.<br />&nbsp;
+			</p>
+		</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+					</td>
+				</tr>
+				<tr>
+					<td align="center" class="container">						<footer>
+							<p>Copyright &copy; 2019 Corum. All rights reserved.</p>
+						</footer></td>
+				</tr>
+			</TABLE>
+
+		</div>
+
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+				asp-fallback-src="lib/jquery/dist/jquery.min.js"
+				asp-fallback-test="window.jQuery"
+				crossorigin="anonymous"
+				integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+				asp-fallback-src="lib/bootstrap/dist/js/bootstrap.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+				crossorigin="anonymous"
+				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+		</script>
+
+  </body>
+
+</html>

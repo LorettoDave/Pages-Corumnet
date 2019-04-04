@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Privacy Policy - Corum - Progressive Metal in Minneapolis</title>
-		<link rel="stylesheet" href="css/tabs.css" />
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="css/tabs.css">
+
 	<SCRIPT LANGUAGE="JavaScript">
-<!--
 		function ParseQueryString(searchStr) {
 			var tempStr = window.location.search;
 			var startOfString = tempStr.indexOf(searchStr);
 			var result;
+
 			result = "";
 			if (startOfString != -1) {
 				var endOfString = tempStr.indexOf("&", startOfString + searchStr.length + 1);
@@ -21,12 +20,15 @@
 					var result = tempStr.substring(startOfString + searchStr.length + 1, tempStr.length);
 				}
 			}
+
 			return result;
 		}
+
 		var NavURL = 'Home';
 		var NavPage = ParseQueryString('page');
 		var isLocal = true;
 		ns = (navigator.appName == "Netscape");
+
 		function switchGraphic(num, name) {
 			var tmpNum = num;
 			if (tmpNum > 4) tmpNum = tmpNum - 5;
@@ -38,6 +40,7 @@
 				if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
 			}
 		}
+
 		pic = new Array();
 		pic[0] = "images/nav1.gif";
 		pic[1] = "images/nav2.gif";
@@ -54,32 +57,36 @@
 		pic[12] = "images/nav3on2.gif";
 		pic[13] = "images/nav4on2.gif";
 		pic[14] = "images/nav5on2.gif";
+
 		img = new Array();
 		for (i = 0; i < pic.length; i++) {
 			img[i] = new Image();
 			img[i].src = pic[i];
 		}
+
 		function Page(pgName, pgURL) {
 			this.pgName = pgName;
 			this.pgURL = pgURL;
 			this.subPg = new Array();
 		}
+
 		var Pages = new Array();
-		Pages[0] = new Page('Home', '/Index.cshtml')
-		Pages[1] = new Page('Shows', '/Shows.cshtml')
-		Pages[1].subPg[0] = new Page('Shows', '/BrokenLeg.cshtml')
-		Pages[2] = new Page('Faces', '/Faces.cshtml')
-		Pages[2].subPg[0] = new Page('Faces', '/Dave01.cshtml')
-		Pages[2].subPg[1] = new Page('Faces', '/Jay01.cshtml')
-		Pages[2].subPg[2] = new Page('Faces', '/Jim01.cshtml')
-		Pages[3] = new Page('Music', '/Music.cshtml')
-		Pages[3].subPg[0] = new Page('Music', '/NotMyselfTracks.cshtml')
-		Pages[3].subPg[1] = new Page('Music', '/NotMyselfLyrics.cshtml')
-		Pages[3].subPg[2] = new Page('Music', '/NotMyselfCredits.cshtml')
-		Pages[3].subPg[3] = new Page('Music', '/RiffheadTracks.cshtml')
-		Pages[3].subPg[4] = new Page('Music', '/RiffheadLyrics.cshtml')
-		Pages[3].subPg[5] = new Page('Music', '/RiffheadCredits.cshtml')
-		Pages[4] = new Page('Stuff', '/Stuff.cshtml')
+		Pages[0] = new Page('Home', '/Index')
+		Pages[1] = new Page('Shows', '/Shows')
+		Pages[1].subPg[0] = new Page('Shows', '/BrokenLeg')
+		Pages[2] = new Page('Faces', '/Faces')
+		Pages[2].subPg[0] = new Page('Faces', '/Dave01')
+		Pages[2].subPg[1] = new Page('Faces', '/Jay01')
+		Pages[2].subPg[2] = new Page('Faces', '/Jim01')
+		Pages[3] = new Page('Music', '/Music')
+		Pages[3].subPg[0] = new Page('Music', '/NotMyselfTracks')
+		Pages[3].subPg[1] = new Page('Music', '/NotMyselfLyrics')
+		Pages[3].subPg[2] = new Page('Music', '/NotMyselfCredits')
+		Pages[3].subPg[3] = new Page('Music', '/RiffheadTracks')
+		Pages[3].subPg[4] = new Page('Music', '/RiffheadLyrics')
+		Pages[3].subPg[5] = new Page('Music', '/RiffheadCredits')
+		Pages[4] = new Page('Stuff', '/Stuff')
+
 		var LastURL = '';
 		function WentTo(num, sub) {
 			LastURL = NavURL;
@@ -88,96 +95,119 @@
 			for (var i = 0; i < Pages.length; i++) {
 				if (Pages[i].pgName == LastURL) document.images[LastURL].src = img[i].src;
 			}
+
 			setTimeout('isLocal=true', 5000);
 		}
+
 		function notify() {
 			if (!ns) FlashNav();
 		}
+
 		function FlashNav() {
 			clearTimeout(timerId);
+
 			switchGraphic(10, "Home");
 			setTimeout('switchGraphic(11, "Shows")', FlashSpeed);
 			setTimeout('switchGraphic(12, "Faces")', FlashSpeed * 2);
 			setTimeout('switchGraphic(13, "Music")', FlashSpeed * 3);
 			setTimeout('switchGraphic(14, "Stuff")', FlashSpeed * 4);
+
 			setTimeout('switchGraphic( 5, "Home")', FlashSpeed * 5);
 			setTimeout('switchGraphic( 6, "Shows")', FlashSpeed * 6);
 			setTimeout('switchGraphic( 7, "Faces")', FlashSpeed * 7);
 			setTimeout('switchGraphic( 8, "Music")', FlashSpeed * 8);
 			setTimeout('switchGraphic( 9, "Stuff")', FlashSpeed * 9);
+
 			setTimeout('switchGraphic( 0, "Home")', FlashSpeed * 10);
 			setTimeout('switchGraphic( 1, "Shows")', FlashSpeed * 11);
 			setTimeout('switchGraphic( 2, "Faces")', FlashSpeed * 12);
 			setTimeout('switchGraphic( 3, "Music")', FlashSpeed * 13);
 			setTimeout('switchGraphic( 4, "Stuff")', FlashSpeed * 14);
+
 			timerId = setTimeout('FlashNav(true)', FlashInterval);
 			if (isLocal == true) setTimeout('window.status="Now Showing: " + document.title', FlashSpeed * 25);
 		}
+
 		var FlashInterval = 15000;
 		var FlashSpeed = 60;
+
 		function DocLoad() {
-			//	if (NavPage != '')
-			//		GoTo(NavPage);
 			if (ns) timerId = setTimeout('FlashNav()', 0);
 			else timerId = setTimeout('FlashNav()', FlashInterval);
 		}
-		//-->
-	</SCRIPT>
+
+		var myPix = new Array("images/random/head1.gif","images/random/head2.gif","images/random/head3.gif","images/random/head4.gif","images/random/head5.gif","images/random/head6.gif","images/random/head7.gif","images/random/head8.gif","images/random/head9.gif","images/random/head10.gif","images/random/head11.gif","images/random/head12.gif","images/random/head13.gif");
+		function loadRandomPic(imgID) {
+			var randomNum = Math.floor(Math.random() * myPix.length);
+			document.getElementById(imgID).src = myPix[randomNum];
+		}
+		
+		WentTo(1);
+		
+		</SCRIPT>
 </head>
-<BODY bgcolor="#ffffff" link="#990000" alink="#990000" vlink="#990000" onLoad="DocLoad()">
-	<nav class="navbar navbar-inverse navbar-left">
-		<div style="position: absolute; vertical-align: middle; left: 0px; width: 100%; height: 100%;" class="container">
+<body bgcolor="#ffffff" link="#990000" alink="#990000" vlink="#990000" onLoad="DocLoad()">
+	<!-- Google Tag Manager (noscript) -->
+	<noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5P683RF"
+				height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	</noscript>
+	<!-- End Google Tag Manager (noscript) -->	
+		<div style="position: relative; vertical-align: middle; left: 0px; width: 100%; height: 100%;" class="container">
+
 			<TABLE HEIGHT="100%" width="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0" style="width: 100%">
 				<TR>
 					<TD height="100%" VALIGN="middle" width="202" rowspan="3"
 						style="background-color: black; background-image: url(images/LeftBack.gif); background-repeat: no-repeat; background-position:center; background-position-x: 1px;">
-						<a onMouseOver="switchGraphic(5, 'Home');return true;" onMouseOut="switchGraphic(0, 'Home');return true;" href="index.html"><IMG NAME="Home" SRC="images/nav1on2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<a href="./" onMouseOver="switchGraphic(5, 'Home');return true;" onMouseOut="switchGraphic(0, 'Home');return true;"><IMG NAME="Home" SRC="images/nav1on2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
 						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
-						<a onMouseOver="switchGraphic(6, 'Shows');return true;" onMouseOut="switchGraphic(1, 'Shows');return true;" href="Shows.html"><IMG NAME="Shows" SRC="images/nav2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<a href="Shows" onMouseOver="switchGraphic(6, 'Shows');return true;" onMouseOut="switchGraphic(1, 'Shows');return true;"><IMG NAME="Shows" SRC="images/nav2.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
 						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
-						<a onMouseOver="switchGraphic(7, 'Faces');return true;" onMouseOut="switchGraphic(2, 'Faces');return true;" href="Faces.html"><IMG NAME="Faces" SRC="images/nav3.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<a href="Faces" onMouseOver="switchGraphic(7, 'Faces');return true;" onMouseOut="switchGraphic(2, 'Faces');return true;"><IMG NAME="Faces" SRC="images/nav3.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
 						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
-						<a onMouseOver="switchGraphic(8, 'Music');return true;" onMouseOut="switchGraphic(3, 'Music');return true;" href="Music.html"><IMG NAME="Music" SRC="images/nav4.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
+						<a href="Music" onMouseOver="switchGraphic(8, 'Music');return true;" onMouseOut="switchGraphic(3, 'Music');return true;"><IMG NAME="Music" SRC="images/nav4.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a><BR />
 						<IMG SRC="images/blank.gif" WIDTH="202" HEIGHT="20"><BR />
-						<a onMouseOver="switchGraphic(9, 'Stuff');return true;" onMouseOut="switchGraphic(4, 'Stuff');return true;" href="Stuff.html"><IMG NAME="Stuff" SRC="images/nav5.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a>
+						<a href="Stuff" onMouseOver="switchGraphic(9, 'Stuff');return true;" onMouseOut="switchGraphic(4, 'Stuff');return true;"><IMG NAME="Stuff" SRC="images/nav5.gif" BORDER="0" WIDTH="194" HEIGHT="31"></a>
 					</TD>
-					<TD VALIGN="TOP" ALIGN="CENTER">
-						&nbsp;<BR><a href="index.html"><img SRC="images/header.gif" ALT="C O R U M" WIDTH="412" HEIGHT="42" border="0"></a><br>
+					<TD VALIGN="TOP" ALIGN="CENTER"><header>
+						&nbsp;<BR><a href=""><img SRC="images/header.gif" ALT="C O R U M" WIDTH="412" HEIGHT="42" border="0"></a><br>
+
 						Buy <a HREF="http://www.cafepress.com/corum">T-shirts, mugs, and mousepads</a> at CafePress.com.<br />
 						Check out our the <a href="https://youtube.com/corumnet/">Corumnet channel on YouTube</a>.<br />
 						&nbsp;<br>
-					</TD>
+</header>
+</TD>
 				</TR>
 				<tr>
 					<td class="container body-content" height="100%" VALIGN="middle" ALIGN="CENTER">
-	<script>
-		(function () {
-			document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function (el) {
-				document.cookie = el.target.dataset.cookieString;
-				document.querySelector("#cookieConsent").classList.add("hidden");
-			}, false);
-		})();
-	</script>
-						<h2>Privacy Policy</h2>
+	<h2>Privacy Policy</h2>
+
 <p>We don't collect any personal data. Any cookies set in your browser are simply to maintain session state; you can likely disable cookies with no ill effects on the site.</p>
+
 					</td>
 				</tr>
 				<tr>
-					<td align="center" class="container">
-						<footer>
-							<p>&copy; 2019 - Corum</p>
-						</footer>
-					</td>
+					<td align="center" class="container">						<footer>
+							<p>Copyright &copy; 2019 Corum. All rights reserved.</p>
+						</footer></td>
 				</tr>
 			</TABLE>
+
 		</div>
-	</nav>
-		<script src="ajax/jquery/jquery-3.3.1.min.js" crossorigin="anonymous" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+				asp-fallback-src="lib/jquery/dist/jquery.min.js"
+				asp-fallback-test="window.jQuery"
+				crossorigin="anonymous"
+				integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
 		</script>
-<script>(window.jQuery||document.write("\u003Cscript src=\u0022\/lib\/jquery\/dist\/jquery.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV\u002BrXbYlF2cqB8txI\/8aZajjp4Bqd\u002BV6D5IgvKT\u0022\u003E\u003C\/script\u003E"));</script>
-		<script src="ajax/bootstrap/3-3-7/bootstrap.min.js" crossorigin="anonymous" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+		<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+				asp-fallback-src="lib/bootstrap/dist/js/bootstrap.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+				crossorigin="anonymous"
+				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
 		</script>
-<script>(window.jQuery && window.jQuery.fn && window.jQuery.fn.modal||document.write("\u003Cscript src=\u0022\/lib\/bootstrap\/dist\/js\/bootstrap.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\u0022\u003E\u003C\/script\u003E"));</script>
-		<script src="/js/site.min.js"></script>
-</BODY>
+
+  </body>
+
 </html>
