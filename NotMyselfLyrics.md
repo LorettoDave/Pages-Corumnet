@@ -292,7 +292,7 @@ number: 3
 			<P>This is me.</P>
 			<P>
 				Now a new face upon the scene.<BR>
-				Your personality will shift .<BR>
+				Your personality will shift.<BR>
 				Involuntarily hide what we think and feel.<BR>
 				Disguise what we say<BR>
 				&#151;laughing until they go away.
