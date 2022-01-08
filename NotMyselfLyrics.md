@@ -210,11 +210,11 @@ number: 3
 			<P>
 				I&#146;m breathing. You can&#146;t stop me.<BR>
 				Succeeding. You can&#146;t wrong me.<BR>
-				I&#146;ve awakened more that ever.<BR>
+				I&#146;ve awakened more than ever.<BR>
 				Time is now. Watch me deliver.<BR>
 				Not wasting things you squander.<BR>
 				Keep focus; no more wander.<BR>
-				What I have of both sides.<BR>
+				What I have: best of both sides.<BR>
 				Confidence in me resides.
 			</P>
 			<P>
